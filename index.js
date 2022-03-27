@@ -12,6 +12,7 @@ const movieUrl = "https://www.imdb.com/title/tt5354160/?ref_=nv_sr_srsg_0";
     const data = [];
 
     const response = await axios(movieUrl, {
+        //this headers important to pretend in real request
         headers: {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
             "accept-encoding": "gzip, deflate, br",
@@ -23,9 +24,10 @@ const movieUrl = "https://www.imdb.com/title/tt5354160/?ref_=nv_sr_srsg_0";
     let $ = cheerio.load(htmlBody);
     let movieName = $(".khmuXj>h1").text();
     let rating = $(".jGRxWM").text();
+    let trailer = $('.ipc-lockup-overlay.sc-5ea2f380-2.gdvnDB.hero-media__slate-overlay.ipc-focusable').attr('href');
 
     data.push({
-        movieName: movieName, rating: rating
+        movieName, rating, trailer
     })
 
     const j2cp = new json2csv();
